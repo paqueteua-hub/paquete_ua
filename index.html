@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Paquete UA — Only Original</title>
+  <link href="style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Paquete UA - Personal shopper for authentic luxury. Fast delivery. Crypto friendly." />
+</head>
+<body>
+  <!-- Topbar -->
+  <div class="topbar container">
+    <a class="btn" href="shop.html">Shop</a>
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌗 Theme</button>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" style="background-image:url('assets/hero-bg.jpg');">
+    <div class="overlay"></div>
+    <div class="hero-content container">
+      <h1>Only Original.<br/>Fast Delivery.</h1>
+      <p class="lead">Paquete UA — your personal shopper for authentic designer pieces. We verify, source, and ship worldwide.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn" href="shop.html">Browse Collection</a>
+        <a class="btn dark" href="https://wa.me/380956010497" target="_blank">WhatsApp</a>
+        <a class="btn dark" href="https://www.instagram.com/paquete_ua/" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="container">
+      <h2>About Paquete UA</h2>
+      <p class="lead">We source only originals from verified boutiques, hand-check authenticity, and ship with speed. Crypto friendly and globally trusted.</p>
+    </div>
+  </section>
+
+  <!-- Style Moments (replaces Instagram Highlights) -->
+  <section>
+    <div class="container center">
+      <h2>Style Moments</h2>
+      <p class="lead">A quick look at recent drops and favorite fits. Tap to see details on the shop page.</p>
+
+      <div class="moments-grid" aria-hidden="false">
+        <img src="assets/pic1.jpg" alt="Style moment 1">
+        <img src="assets/pic2.jpg" alt="Style moment 2">
+        <img src="assets/pic3.jpg" alt="Style moment 3">
+        <img src="assets/pic4.jpg" alt="Style moment 4">
+      </div>
+    </div>
+  </section>
+
+  <!-- Crypto + Contact quick -->
+  <section>
+    <div class="container center">
+      <h2>Payments & Contact</h2>
+      <p class="lead">We accept major cryptocurrencies and traditional payments. Prefer messaging? Use the direct chat links below.</p>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+        <a class="btn" href="https://web.telegram.org/k/#@paquetemann" target="_blank">Telegram (Men)</a>
+        <a class="btn" href="https://web.telegram.org/k/#@paqueteua" target="_blank">Telegram (Women)</a>
+        <a class="btn dark" href="https://wa.me/380956010497" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container row">
+      <p>© 2025 Paquete UA. Only Original. All rights reserved.</p>
+      <div style="display:flex;gap:10px;align-items:center">
+        <a class="btn dark" href="https://www.instagram.com/paquete_ua/" target="_blank">Instagram</a>
+        <a class="btn" href="https://wa.me/380956010497" target="_blank">WhatsApp</a>
+        <a class="btn" href="https://web.telegram.org/k/#@paquetemann" target="_blank">Telegram (Men)</a>
+        <a class="btn" href="https://web.telegram.org/k/#@paqueteua" target="_blank">Telegram (Women)</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle (persists using localStorage)
+    const toggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const saved = localStorage.getItem('paquete_theme');
+    if(saved === 'light') body.classList.add('light');
+
+    function updateToggleTitle() {
+      toggle.textContent = body.classList.contains('light') ? '🌞 Light' : '🌙 Dark';
+    }
+    updateToggleTitle();
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('light');
+      localStorage.setItem('paquete_theme', body.classList.contains('light') ? 'light' : 'dark');
+      updateToggleTitle();
+    });
+  </script>
+</body>
+</html>
 
