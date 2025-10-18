@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Women — Paquete UA</title>
+  <link href="style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="topbar container">
+    <a class="btn" href="shop.html">Back</a>
+    <button class="theme-toggle" id="themeToggleWomen">🌗 Theme</button>
+  </div>
+
+  <section style="padding-top:110px">
+    <div class="container">
+      <h2>Women — Collection</h2>
+      <p class="lead">Tap any item to open details and order. Images come from assets: pic5 → pic35</p>
+
+      <div class="products-grid" id="womenGrid">
+        <!-- We'll generate 31 images (pic5 - pic35) -->
+        <!-- Template product block -->
+        <!-- Example:
+        <div class="product" data-name="Item 1" data-src="assets/pic5.jpg">
+          <img src="assets/pic5.jpg" alt="Item 1">
+          <div class="meta"><span>Item 1</span><span>—</span></div>
+        </div>
+        -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal placeholder -->
+  <div id="modalRoot" style="display:none"></div>
+
+  <footer class="footer">
+    <div class="container row">
+      <p>© 2025 Paquete UA. Only Original.</p>
+      <div style="display:flex;gap:10px">
+        <a class="btn dark" href="https://web.telegram.org/k/#@paqueteua" target="_blank">Telegram (Women)</a>
+        <a class="btn" href="https://wa.me/380956010497" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme
+    const tW = document.getElementById('themeToggleWomen');
+    const saved = localStorage.getItem('paquete_theme');
+    if(saved === 'light') document.body.classList.add('light');
+    function updateW(){ tW.textContent = document.body.classList.contains('light') ? '🌞 Light' : '🌙 Dark' }
+    updateW();
+    tW.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('paquete_theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      updateW();
+    });
+
+    // Generate product grid (pic5 - pic35)
+    const womenGrid = document.getElementById('womenGrid');
+    for(let i=5;i<=35;i++){
+      const idx = i;
+      const name = `Item ${i - 4}`; // Item 1 ... Item 31
+      const src = `assets/pic${idx}.jpg`;
+      const div = document.createElement('div');
+      div.className = 'product';
+      div.setAttribute('data-name', name);
+      div.setAttribute('data-src', src);
+      div.innerHTML = `
+        <img src="${src}" alt="${name}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'">
+        <div class="meta"><span>${name}</span><span>Tap to view</span></div>
+      `;
+      womenGrid.appendChild(div);
+    }
+
+    // Modal logic
+    const modalRoot = document.getElementById('modalRoot');
+    function openModal(name, src){
+      modalRoot.style.display = 'flex';
+      modalRoot.className = 'modal-backdrop';
+      modalRoot.innerHTML = `
+        <div class="modal" role="dialog" aria-modal="true">
+          <img src="${src}" alt="${name}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'">
+          <div class="info">
+            <h3>${name}</h3>
+            <p>Authentic, verified piece. Send us a message to check size/stock or to reserve.</p>
+            <div class="price">Price on request</div>
+            <div class="cta-row">
+              <a class="btn" href="https://wa.me/380956010497?text=${encodeURIComponent('Hi, I am interested in '+name)}" target="_blank">Order Now</a>
+              <a class="btn dark" href="mailto:paquete.ua@gmail.com?subject=${encodeURIComponent('Inquiry about '+name)}">Email</a>
+            </div>
+            <div style="margin-top:12px"><a href="javascript:void(0)" id="closeModal" class="btn dark">Close</a></div>
+          </div>
+        </div>
+      `;
+      document.getElementById('closeModal').addEventListener('click', closeModal);
+      modalRoot.addEventListener('click', function(e){ if(e.target === modalRoot) closeModal(); });
+    }
+    function closeModal(){ modalRoot.style.display='none'; modalRoot.innerHTML=''; }
+
+    // Click handler for products
+    document.addEventListener('click', function(e){
+      const card = e.target.closest('.product');
+      if(card){
+        const name = card.getAttribute('data-name');
+        const src = card.getAttribute('data-src');
+        openModal(name, src);
+      }
+    });
+  </script>
+</body>
+</html>
