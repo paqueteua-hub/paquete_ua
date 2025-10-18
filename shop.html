@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shop — Paquete UA</title>
+  <link href="style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="topbar container">
+    <a class="btn" href="index.html">Home</a>
+    <button class="theme-toggle" id="themeToggleShop">🌗 Theme</button>
+  </div>
+
+  <section style="padding-top:120px">
+    <div class="container">
+      <h2>Shop Categories</h2>
+      <p class="lead">Choose your category. Tap a card to browse items. Click an item to order via WhatsApp.</p>
+
+      <div class="categories">
+        <a class="cat-card" href="men.html">
+          <img src="assets/men-banner.jpg" alt="Men collection">
+          <h3>For Men</h3>
+          <p style="color:var(--muted)">Curated designer finds and streetwear drops.</p>
+        </a>
+
+        <a class="cat-card" href="women.html">
+          <img src="assets/women-banner.jpg" alt="Women collection">
+          <h3>For Women</h3>
+          <p style="color:var(--muted)">Handpicked luxury and timeless pieces.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container row">
+      <p>© 2025 Paquete UA. Only Original.</p>
+      <div style="display:flex;gap:10px">
+        <a class="btn dark" href="https://www.instagram.com/paquete_ua/" target="_blank">Instagram</a>
+        <a class="btn" href="https://wa.me/380956010497" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle - shop page
+    const tShop = document.getElementById('themeToggleShop');
+    const saved = localStorage.getItem('paquete_theme');
+    if(saved === 'light') document.body.classList.add('light');
+    function updateShop(){ tShop.textContent = document.body.classList.contains('light') ? '🌞 Light' : '🌙 Dark' }
+    updateShop();
+    tShop.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('paquete_theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      updateShop();
+    });
+  </script>
+</body>
+</html>
