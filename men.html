@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Men — Paquete UA</title>
+  <link href="style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="topbar container">
+    <a class="btn" href="shop.html">Back</a>
+    <button class="theme-toggle" id="themeToggleMen">🌗 Theme</button>
+  </div>
+
+  <section style="padding-top:110px">
+    <div class="container">
+      <h2>Men — Collection</h2>
+      <p class="lead">Tap an item to view details and order. Images come from assets: pic36 → pic66</p>
+
+      <div class="products-grid" id="menGrid"></div>
+    </div>
+  </section>
+
+  <div id="modalRootMen" style="display:none"></div>
+
+  <footer class="footer">
+    <div class="container row">
+      <p>© 2025 Paquete UA. Only Original.</p>
+      <div style="display:flex;gap:10px">
+        <a class="btn dark" href="https://web.telegram.org/k/#@paquetemann" target="_blank">Telegram (Men)</a>
+        <a class="btn" href="https://wa.me/380956010497" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme
+    const tM = document.getElementById('themeToggleMen');
+    const saved = localStorage.getItem('paquete_theme');
+    if(saved === 'light') document.body.classList.add('light');
+    function updateM(){ tM.textContent = document.body.classList.contains('light') ? '🌞 Light' : '🌙 Dark' }
+    updateM();
+    tM.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('paquete_theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      updateM();
+    });
+
+    // Generate product grid (pic36 - pic66)
+    const menGrid = document.getElementById('menGrid');
+    for(let i=36;i<=66;i++){
+      const idx = i;
+      const name = `Item ${i - 35}`; // Item 1 ... Item 31
+      const src = `assets/pic${idx}.jpg`;
+      const div = document.createElement('div');
+      div.className = 'product';
+      div.setAttribute('data-name', name);
+      div.setAttribute('data-src', src);
+      div.innerHTML = `
+        <img src="${src}" alt="${name}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'">
+        <div class="meta"><span>${name}</span><span>Tap to view</span></div>
+      `;
+      menGrid.appendChild(div);
+    }
+
+    // Modal logic (same as women)
+    const modalRootMen = document.getElementById('modalRootMen');
+    function openModalMen(name, src){
+      modalRootMen.style.display = 'flex';
+      modalRootMen.className = 'modal-backdrop';
+      modalRootMen.innerHTML = `
+        <div class="modal" role="dialog" aria-modal="true">
+          <img src="${src}" alt="${name}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'">
+          <div class="info">
+            <h3>${name}</h3>
+            <p>Authentic, verified piece. Send us a message to check size/stock or to reserve.</p>
+            <div class="price">Price on request</div>
+            <div class="cta-row">
+              <a class="btn" href="https://wa.me/380956010497?text=${encodeURIComponent('Hi, I am interested in '+name)}" target="_blank">Order Now</a>
+              <a class="btn dark" href="mailto:paquete.ua@gmail.com?subject=${encodeURIComponent('Inquiry about '+name)}">Email</a>
+            </div>
+            <div style="margin-top:12px"><a href="javascript:void(0)" id="closeModalMen" class="btn dark">Close</a></div>
+          </div>
+        </div>
+      `;
+      document.getElementById('closeModalMen').addEventListener('click', closeModalMen);
+      modalRootMen.addEventListener('click', function(e){ if(e.target === modalRootMen) closeModalMen(); });
+    }
+    function closeModalMen(){ modalRootMen.style.display='none'; modalRootMen.innerHTML=''; }
+
+    document.addEventListener('click', function(e){
+      const card = e.target.closest('.product');
+      if(card){
+        const name = card.getAttribute('data-name');
+        const src = card.getAttribute('data-src');
+        openModalMen(name, src);
+      }
+    });
+  </script>
+</body>
+</html>
