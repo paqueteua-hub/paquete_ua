@@ -279,6 +279,79 @@ section p.lead{
   .moments-grid img{ height:150px }
   .product img{ height:160px }
   .modal{ max-width:95%; }
+   /* --- Topbar Styling (append to the end of style.css) --- */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Left / center / right layout: keep children spaced nicely */
+.topbar > * {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Make buttons in topbar smaller and consistent */
+.topbar .btn {
+  font-size: 0.85rem;
+  padding: 6px 14px;
+}
+
+.btn.small {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
+
+/* Ensure the theme toggle looks consistent with your variables */
+.theme-toggle {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.28s ease;
+}
+
+/* Use your muted color for subtle borders in light mode */
+body.light .theme-toggle {
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Hover states */
+.theme-toggle:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Responsive behavior: stack on small screens */
+@media (max-width: 600px) {
+  .topbar {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    padding: 10px;
+  }
+  .topbar > * {
+    justify-content: center;
+  }
+  .topbar .btn,
+  .theme-toggle {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 }
 
 /* subtle transitions */
